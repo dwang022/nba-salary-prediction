@@ -26,7 +26,7 @@ rf_model7 = RandomForestRegressor()
 rf_model7.fit(train_data_scaled7, train_data7["Salary"])
 
 # Streamlit app
-st.title("NBA Player Salary Prediction")
+st.title("NBA Player Salary Prediction (2022-23)")
 
 # User input
 st.header("User Input Features")
@@ -54,4 +54,3 @@ predicted_salary = rf_model7.predict(new_data_scaled)
 st.subheader("Predicted Salary")
 st.write(f"The predicted NBA salary is: ${round(predicted_salary[0], 2)}")
 
-# Your Streamlit app code goes here
