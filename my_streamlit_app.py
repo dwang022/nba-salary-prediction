@@ -7,7 +7,7 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.pipeline import make_pipeline
 
 # Load data
-nba_data_all = pd.read_csv("/Users/dwang/Desktop/Predicting NBA Player Salary/nba_2022-23_all_stats_with_salary.csv")
+nba_data_all = pd.read_csv("/Users/dwang/Desktop/jupyter/nba_2022-23_all_stats_with_salary3.csv")
 
 # Select relevant columns
 nba_data7 = nba_data_all[["Salary", "PTS", "AST", "TRB", "Age"]]
