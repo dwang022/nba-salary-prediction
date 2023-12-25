@@ -28,12 +28,12 @@ rf_model7.fit(train_data_scaled7, train_data7["Salary"])
 # Streamlit app
 st.title("NBA Player Salary Prediction")
 
-# Sidebar for user input
-st.sidebar.header("User Input Features")
-points = st.sidebar.number_input("Points:", value=20)
-assists = st.sidebar.number_input("Assists:", value=5)
-rebounds = st.sidebar.number_input("Rebounds:", value=5)
-age = st.sidebar.number_input("Age:", value=30)
+# User input
+st.header("User Input Features")
+points = st.number_input("Points:", value=20)
+assists = st.number_input("Assists:", value=5)
+rebounds = st.number_input("Rebounds:", value=5)
+age = st.number_input("Age:", value=30)
 
 # Create a DataFrame with named features for the user input
 user_input_df = pd.DataFrame({
