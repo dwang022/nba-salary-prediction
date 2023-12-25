@@ -50,7 +50,8 @@ new_data_scaled = preProcValues7.transform(user_input_df)
 predicted_salary = rf_model7.predict(new_data_scaled)
 
 
-# Display predicted salary
+# Display predicted salary with commas
+formatted_salary = f"${predicted_salary[0]:,.2f}"
 st.subheader("Predicted Salary")
-st.write(f"The predicted NBA salary is: ${round(predicted_salary[0], 2)}")
+st.write(f"The predicted NBA salary is: {formatted_salary}")
 
