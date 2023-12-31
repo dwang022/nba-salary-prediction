@@ -6,6 +6,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.pipeline import make_pipeline
 from sklearn.linear_model import Ridge
+from sklearn.ensemble import StackingRegressor
 
 # Load data
 nba_data_all = pd.read_csv("nba_2022-23_all_stats_with_salary3.csv")
@@ -22,9 +23,27 @@ preProcValues7 = StandardScaler().fit(train_data7[["PTS", "AST", "TRB", "Age"]])
 train_data_scaled7 = preProcValues7.transform(train_data7[["PTS", "AST", "TRB", "Age"]])
 test_data_scaled7 = preProcValues7.transform(test_data7[["PTS", "AST", "TRB", "Age"]])
 
-# Build Random Forest model
+# Build Random Forest and Ridge model
 ridge_model7 = Ridge()
 ridge_model7.fit(train_data_scaled7, train_data7["Salary"])
+
+rf_model7 = RandomForestRegressor()
+rf_model7.fit(train_data_scaled7, train_data7["Salary"])
+
+# Create a stacking model
+estimators = [
+    ('ridge', ridge_model7),
+    ('random_forest', rf_model7)
+]
+
+stacking_model = StackingRegressor(estimators=estimators, final_estimator=Ridge())
+
+# Fit the stacking model
+stacking_model.fit(train_data_scaled7, train_data7["Salary"])
+
+
+# Streamlit App
+st.set_page_config(page_title="NBA Salary Prediction App", layout="wide")
 
 # Streamlit app
 st.title("NBA Player Salary Prediction (2022-23)")
@@ -48,7 +67,7 @@ user_input_df = pd.DataFrame({
 new_data_scaled = preProcValues7.transform(user_input_df)
 
 # Predict salary using the Random Forest model
-predicted_salary = ridge_model7.predict(new_data_scaled)
+predicted_salary = stacking_model.predict(new_data_scaled)
 
 
 # Display predicted salary with commas
